@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		2D4E1E9E19639EB6006F22EB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D4E1E9D19639EB6006F22EB /* main.m */; };
 		2D4E1EA119639EB6006F22EB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D4E1EA019639EB6006F22EB /* AppDelegate.m */; };
-		2D4E1EA419639EB6006F22EB /* DataEntryController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D4E1EA319639EB6006F22EB /* DataEntryController.m */; };
+		2D4E1EA419639EB6006F22EB /* DataEntryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D4E1EA319639EB6006F22EB /* DataEntryViewController.m */; };
 		2D4E1EA719639EB6006F22EB /* GraphViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D4E1EA619639EB6006F22EB /* GraphViewController.m */; };
 		2D4E1EAA19639EB6006F22EB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2D4E1EA819639EB6006F22EB /* Main.storyboard */; };
 		2D4E1EAC19639EB6006F22EB /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2D4E1EAB19639EB6006F22EB /* Images.xcassets */; };
@@ -32,8 +32,8 @@
 		2D4E1E9D19639EB6006F22EB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		2D4E1E9F19639EB6006F22EB /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		2D4E1EA019639EB6006F22EB /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		2D4E1EA219639EB6006F22EB /* DataEntryController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DataEntryController.h; sourceTree = "<group>"; };
-		2D4E1EA319639EB6006F22EB /* DataEntryController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DataEntryController.m; sourceTree = "<group>"; };
+		2D4E1EA219639EB6006F22EB /* DataEntryViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DataEntryViewController.h; sourceTree = "<group>"; };
+		2D4E1EA319639EB6006F22EB /* DataEntryViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DataEntryViewController.m; sourceTree = "<group>"; };
 		2D4E1EA519639EB6006F22EB /* GraphViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GraphViewController.h; sourceTree = "<group>"; };
 		2D4E1EA619639EB6006F22EB /* GraphViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GraphViewController.m; sourceTree = "<group>"; };
 		2D4E1EA919639EB6006F22EB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -84,8 +84,8 @@
 			children = (
 				2D4E1E9F19639EB6006F22EB /* AppDelegate.h */,
 				2D4E1EA019639EB6006F22EB /* AppDelegate.m */,
-				2D4E1EA219639EB6006F22EB /* DataEntryController.h */,
-				2D4E1EA319639EB6006F22EB /* DataEntryController.m */,
+				2D4E1EA219639EB6006F22EB /* DataEntryViewController.h */,
+				2D4E1EA319639EB6006F22EB /* DataEntryViewController.m */,
 				2D4E1EA519639EB6006F22EB /* GraphViewController.h */,
 				2D4E1EA619639EB6006F22EB /* GraphViewController.m */,
 				2D4E1EA819639EB6006F22EB /* Main.storyboard */,
@@ -223,7 +223,7 @@
 			files = (
 				2D4E1EA719639EB6006F22EB /* GraphViewController.m in Sources */,
 				2D4E1EA119639EB6006F22EB /* AppDelegate.m in Sources */,
-				2D4E1EA419639EB6006F22EB /* DataEntryController.m in Sources */,
+				2D4E1EA419639EB6006F22EB /* DataEntryViewController.m in Sources */,
 				2D4E1E9E19639EB6006F22EB /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
