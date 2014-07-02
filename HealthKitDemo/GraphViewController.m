@@ -6,14 +6,14 @@
 //  Copyright (c) 2014 shadyproject. All rights reserved.
 //
 
-#import "SecondViewController.h"
+#import "GraphViewController.h"
 
-@interface SecondViewController ()
+@interface GraphViewController ()
             
 
 @end
 
-@implementation SecondViewController
+@implementation GraphViewController
             
 - (void)viewDidLoad {
     [super viewDidLoad];

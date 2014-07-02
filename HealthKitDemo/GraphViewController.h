@@ -6,9 +6,9 @@
 //  Copyright (c) 2014 shadyproject. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+@import UIKit;
 
-@interface SecondViewController : UIViewController
+@interface GraphViewController : UICollectionViewController
 
 
 @end

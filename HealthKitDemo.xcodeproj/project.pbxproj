@@ -10,7 +10,7 @@
 		2D4E1E9E19639EB6006F22EB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D4E1E9D19639EB6006F22EB /* main.m */; };
 		2D4E1EA119639EB6006F22EB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D4E1EA019639EB6006F22EB /* AppDelegate.m */; };
 		2D4E1EA419639EB6006F22EB /* DataEntryController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D4E1EA319639EB6006F22EB /* DataEntryController.m */; };
-		2D4E1EA719639EB6006F22EB /* SecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D4E1EA619639EB6006F22EB /* SecondViewController.m */; };
+		2D4E1EA719639EB6006F22EB /* GraphViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D4E1EA619639EB6006F22EB /* GraphViewController.m */; };
 		2D4E1EAA19639EB6006F22EB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2D4E1EA819639EB6006F22EB /* Main.storyboard */; };
 		2D4E1EAC19639EB6006F22EB /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2D4E1EAB19639EB6006F22EB /* Images.xcassets */; };
 		2D4E1EB819639EB6006F22EB /* HealthKitDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D4E1EB719639EB6006F22EB /* HealthKitDemoTests.m */; };
@@ -34,8 +34,8 @@
 		2D4E1EA019639EB6006F22EB /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		2D4E1EA219639EB6006F22EB /* DataEntryController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DataEntryController.h; sourceTree = "<group>"; };
 		2D4E1EA319639EB6006F22EB /* DataEntryController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DataEntryController.m; sourceTree = "<group>"; };
-		2D4E1EA519639EB6006F22EB /* SecondViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SecondViewController.h; sourceTree = "<group>"; };
-		2D4E1EA619639EB6006F22EB /* SecondViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SecondViewController.m; sourceTree = "<group>"; };
+		2D4E1EA519639EB6006F22EB /* GraphViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GraphViewController.h; sourceTree = "<group>"; };
+		2D4E1EA619639EB6006F22EB /* GraphViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GraphViewController.m; sourceTree = "<group>"; };
 		2D4E1EA919639EB6006F22EB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		2D4E1EAB19639EB6006F22EB /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		2D4E1EB119639EB6006F22EB /* HealthKitDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HealthKitDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -86,8 +86,8 @@
 				2D4E1EA019639EB6006F22EB /* AppDelegate.m */,
 				2D4E1EA219639EB6006F22EB /* DataEntryController.h */,
 				2D4E1EA319639EB6006F22EB /* DataEntryController.m */,
-				2D4E1EA519639EB6006F22EB /* SecondViewController.h */,
-				2D4E1EA619639EB6006F22EB /* SecondViewController.m */,
+				2D4E1EA519639EB6006F22EB /* GraphViewController.h */,
+				2D4E1EA619639EB6006F22EB /* GraphViewController.m */,
 				2D4E1EA819639EB6006F22EB /* Main.storyboard */,
 				2D4E1EAB19639EB6006F22EB /* Images.xcassets */,
 				2D4E1E9B19639EB6006F22EB /* Supporting Files */,
@@ -221,7 +221,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2D4E1EA719639EB6006F22EB /* SecondViewController.m in Sources */,
+				2D4E1EA719639EB6006F22EB /* GraphViewController.m in Sources */,
 				2D4E1EA119639EB6006F22EB /* AppDelegate.m in Sources */,
 				2D4E1EA419639EB6006F22EB /* DataEntryController.m in Sources */,
 				2D4E1E9E19639EB6006F22EB /* main.m in Sources */,
