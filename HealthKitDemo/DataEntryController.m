@@ -6,14 +6,14 @@
 //  Copyright (c) 2014 shadyproject. All rights reserved.
 //
 
-#import "FirstViewController.h"
+#import "DataEntryController.h"
 
-@interface FirstViewController ()
+@interface DataEntryController ()
             
 
 @end
 
-@implementation FirstViewController
+@implementation DataEntryController
             
 - (void)viewDidLoad {
     [super viewDidLoad];
