@@ -6,6 +6,8 @@
 //  Copyright (c) 2014 shadyproject. All rights reserved.
 //
 
+@import HealthKit;
+
 #import "AppDelegate.h"
 
 @interface AppDelegate ()
@@ -14,6 +16,17 @@
 @end
 
 @implementation AppDelegate
+
++(HKHealthStore*)healthStore {
+    static HKHealthStore* __store = nil;
+    
+    static dispatch_once_t token;
+    dispatch_once(&token, ^{
+        __store = [[HKHealthStore alloc] init];
+    });
+    
+    return __store;
+}
             
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {

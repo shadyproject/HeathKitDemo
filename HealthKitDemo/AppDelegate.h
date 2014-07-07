@@ -8,10 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
+@class HKHealthStore;
+
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 
++ (HKHealthStore*)healthStore;
 
 @end
 
