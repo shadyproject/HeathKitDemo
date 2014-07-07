@@ -7,6 +7,7 @@
 //
 
 @import UIKit;
+@import HealthKit;
 
 @interface DataEntryViewController : UITableViewController
 
