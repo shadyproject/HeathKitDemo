@@ -41,6 +41,7 @@
 		2D4E1EB119639EB6006F22EB /* HealthKitDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HealthKitDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D4E1EB619639EB6006F22EB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2D4E1EB719639EB6006F22EB /* HealthKitDemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HealthKitDemoTests.m; sourceTree = "<group>"; };
+		FC98B51E196BA0E100AE7F42 /* HealthKitDemo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = HealthKitDemo.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +83,7 @@
 		2D4E1E9A19639EB6006F22EB /* HealthKitDemo */ = {
 			isa = PBXGroup;
 			children = (
+				FC98B51E196BA0E100AE7F42 /* HealthKitDemo.entitlements */,
 				2D4E1E9F19639EB6006F22EB /* AppDelegate.h */,
 				2D4E1EA019639EB6006F22EB /* AppDelegate.m */,
 				2D4E1EA219639EB6006F22EB /* DataEntryViewController.h */,
@@ -170,7 +172,12 @@
 				TargetAttributes = {
 					2D4E1E9719639EB6006F22EB = {
 						CreatedOnToolsVersion = 6.0;
-						DevelopmentTeam = X49T9R7SE6;
+						DevelopmentTeam = 5TW2Z42CN6;
+						SystemCapabilities = {
+							com.apple.HealthKit = {
+								enabled = 0;
+							};
+						};
 					};
 					2D4E1EB019639EB6006F22EB = {
 						CreatedOnToolsVersion = 6.0;

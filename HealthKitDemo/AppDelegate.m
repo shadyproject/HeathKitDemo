@@ -27,8 +27,16 @@
         if ([HKHealthStore isHealthDataAvailable]) {
             __store = [[HKHealthStore alloc] init];
             
-            NSSet *readTypes = [NSSet setWithArray:@[]];
-            NSSet *writeTypes = [NSSet setWithArray:@[]];
+            NSSet *readTypes = [NSSet setWithArray:@[
+                                                     HKQuantityTypeIdentifierHeight,
+                                                     HKQuantityTypeIdentifierBodyMass,
+                                                     HKQuantityTypeIdentifierBloodAlcoholContent,
+                                                     HKQuantityTypeIdentifierBloodPressureDiastolic,
+                                                     HKQuantityTypeIdentifierBloodPressureSystolic,
+                                                     HKQuantityTypeIdentifierNikeFuel,
+                                                     
+                                                     ]];
+            NSSet *writeTypes = readTypes;
             
             [__store requestAuthorizationToShareTypes:writeTypes readTypes:readTypes completion:^(BOOL success, NSError *error) {
                 //TODO: error handling

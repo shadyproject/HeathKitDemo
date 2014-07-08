@@ -34,15 +34,104 @@
     [_formatter setDateStyle:NSDateFormatterShortStyle];
     [_formatter setTimeStyle:NSDateFormatterNoStyle];
 }
-- (IBAction)saveCharacteristicData:(UIButton *)sender {
-    NSDate *birthDate = [self.formatter dateFromString:self.birthDateField.text];
-    NSString *sex = [self.genderPIcker titleForSegmentAtIndex:self.genderPIcker.selectedSegmentIndex];
-    NSString *bloodType = self.bloodTypeField.text;
-    
-    [self saveBirthDate:birthDate sex:sex andBloodType:bloodType];
-}
 
 - (IBAction)saveSampleData:(id)sender {
+    [self saveHeight:[self.heightField.text doubleValue]];
+    [self saveWeight:[self.weightField.text doubleValue]];
+    [self saveFuelPoints:[self.fuelPointsField.text doubleValue]];
+    [self saveBloodAlcohol:[self.bacField.text doubleValue]];
+    [self saveBloodPressure:self.bloodPressureField.text];
+}
+
+- (void)saveHeight:(CGFloat)height {
+    HKUnit *inchUnit = [HKUnit inchUnit];
+    HKQuantity *heightQuantity = [HKQuantity quantityWithUnit:inchUnit doubleValue:height];
+
+    HKQuantityType *heightType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierHeight];
+    NSDate *now = [NSDate date];
+    
+    HKQuantitySample *heightSample = [HKQuantitySample quantitySampleWithType:heightType quantity:heightQuantity startDate:now endDate:now];
+    
+    [[AppDelegate healthStore] saveObject:heightSample withCompletion:^(BOOL success, NSError *error) {
+        if (!success) {
+            NSLog(@"Could not save height into health store: %@", error);
+        }
+        //[self updateUsersHeight];
+    }];
+}
+
+- (void)saveWeight:(CGFloat)weight {
+    HKUnit *poundUnit = [HKUnit poundUnit];
+    HKQuantity *weightQuantity = [HKQuantity quantityWithUnit:poundUnit doubleValue:weight];
+    
+    HKQuantityType *weightType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyMass];
+    NSDate *now = [NSDate date];
+    
+    HKQuantitySample *weightSample = [HKQuantitySample quantitySampleWithType:weightType quantity:weightQuantity startDate:now endDate:now];
+    
+    [[AppDelegate healthStore] saveObject:weightSample withCompletion:^(BOOL success, NSError *error) {
+        if (!success) {
+            NSLog(@"Coudl not save weight into health store: %@", error);
+        }
+        //[self updateUsersWeight];
+    }];
+}
+
+- (void)saveFuelPoints:(CGFloat)points {
+    HKUnit *fuelPointUnit = [HKUnit countUnit];
+    HKQuantity *fuelPointQuantity = [HKQuantity quantityWithUnit:fuelPointUnit doubleValue:points];
+    
+    HKQuantityType *fuelPointType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierNikeFuel];
+    NSDate *now = [NSDate date];
+    
+    HKQuantitySample *fuelPointSample = [HKQuantitySample quantitySampleWithType:fuelPointType quantity:fuelPointQuantity startDate:now endDate:now];
+    
+    [[AppDelegate healthStore] saveObject:fuelPointSample withCompletion:^(BOOL success, NSError *error) {
+        if (!success) {
+            NSLog(@"Could not save fuel points into health store: %@", error);
+        }
+        //[self updateFuelPoints];
+    }];
+}
+
+- (void)saveBloodAlcohol:(CGFloat)bac {
+    HKUnit *bacUnit = [HKUnit percentUnit];
+    HKQuantity *bacQuantity = [HKQuantity quantityWithUnit:bacUnit doubleValue:bac];
+    
+    HKQuantityType *bacType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierBloodAlcoholContent];
+    NSDate *now = [NSDate date];
+    
+    HKQuantitySample *bacSample = [HKQuantitySample quantitySampleWithType:bacType quantity:bacQuantity startDate:now endDate:now];
+    
+    [[AppDelegate healthStore] saveObject:bacSample withCompletion:^(BOOL success, NSError *error) {
+        if (!success) {
+            NSLog(@"Could not save BAC value into health store: %@", error);
+        }
+    }];
+}
+
+- (void)saveBloodPressure:(NSString*)bloodPressure {
+    NSArray *components = [bloodPressure componentsSeparatedByString:@"/"];
+    CGFloat systolic = [components[0] doubleValue];
+    CGFloat diastolic = [components[0] doubleValue];
+    
+    HKUnit *bloodPressureUnit = [HKUnit millimeterOfMercuryUnit];
+    
+    HKQuantity *systolicQty = [HKQuantity quantityWithUnit:bloodPressureUnit doubleValue:systolic];
+    HKQuantity *diastolicQty = [HKQuantity quantityWithUnit:bloodPressureUnit doubleValue:diastolic];
+    
+    HKQuantityType *systolicType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierBloodPressureSystolic];
+    HKQuantityType *diastolicType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierBloodPressureDiastolic];
+    NSDate *now = [NSDate date];
+    
+    HKQuantitySample *systolicSample = [HKQuantitySample quantitySampleWithType:systolicType quantity:systolicQty startDate:now endDate:now];
+    HKQuantitySample *diastolicSample = [HKQuantitySample quantitySampleWithType:diastolicType quantity:diastolicQty startDate:now endDate:now];
+    
+    [[AppDelegate healthStore] saveObjects:@[systolicSample, diastolicSample] withCompletion:^(BOOL success, NSError *error) {
+        if (!success) {
+            NSLog(@"Could not save blood pressure data: %@", error);
+        }
+    }];
 }
 
 - (IBAction)saveCategoryData:(UIButton *)sender {
@@ -57,21 +146,6 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-- (void)saveBirthDate:(NSDate*)date sex:(NSString*)sex andBloodType:(NSString*)bloodType {
-    HKBloodTypeObject *bto = [self bloodTypeFromString:bloodType]; //Takin' care of business...
-    HKBiologicalSexObject *so = [self sexFromString:sex];
-    
-    HKCharacteristicType *charType = [HKCharacteristicType characteristicTypeForIdentifier:HKCharacteristicTypeIdentifierDateOfBirth];
-    
-    NSDateComponents *components = [[NSCalendar currentCalendar] components:NSCalendarUnitDay fromDate:date toDate:[NSDate date] options:NSCalendarWrapComponents];
-    CGFloat daysOld = [components day];
-    HKQuantity *days = [HKQuantity quantityWithUnit:[HKUnit dayUnit] doubleValue:daysOld];
-    
-    [[AppDelegate healthStore] saveObjects:@[bto, so, dob] withCompletion:^(BOOL success, NSError *error) {
-        NSLog(@"%@ succeed saving data. Error: %@", (success ? @"Did" : @"Did not"), error);
-    }];
 }
 
 - (void)populateCharacteristicData {
@@ -144,15 +218,33 @@
             return nil;
     }
 }
-                     
-- (HKBloodType)bloodTypeForString:(NSString*)string {
+/* Apparently this isn't actualy able to be set from anythign other than the HEalth app
+- (HKBloodTypeObject*)bloodTypeForString:(NSString*)string {
     HKObjectType *type = [HKObjectType characteristicTypeForIdentifier:HKCharacteristicTypeIdentifierBloodType];
     NSDate *start = [NSDate date];
     NSDate *end = start;
     HKCategorySample *sample = nil;
-    if ([[string uppercaseString] isEqualToString:@"AB-"]) {
-        //stuff
+    NSString *normalizedTypeString = [string uppercaseString];
+    if ([normalizedTypeString isEqualToString:@"AB-"]) {
+        sample = [HKCategorySample categorySampleWithType:type value:HKBloodTypeABNegative startDate:start endDate:end];
+    } else if ([normalizedTypeString isEqualToString:@"AB+"]) {
+        sample = [HKCategorySample categorySampleWithType:type value:HKBloodTypeABPositive startDate:start endDate:end];
+    } else if ([normalizedTypeString isEqualToString:@"A-"]) {
+        sample = [HKCategorySample categorySampleWithType:type value:HKBloodTypeANegative startDate:start endDate:end];
+    } else if ([normalizedTypeString isEqualToString:@"A+"]) {
+        sample = [HKCategorySample categorySampleWithType:type value:HKBloodTypeAPositive startDate:start endDate:end];
+    } else if ([normalizedTypeString isEqualToString:@"B-"]) {
+        sample = [HKCategorySample categorySampleWithType:type value:HKBloodTypeBNegative startDate:start endDate:end];
+    } else if ([normalizedTypeString isEqualToString:@"B+"]) {
+        sample = [HKCategorySample categorySampleWithType:type value:HKBloodTypeBPositive startDate:start endDate:end];
+    } else if ([normalizedTypeString isEqualToString:@"O-"]) {
+        sample = [HKCategorySample categorySampleWithType:type value:HKBloodTypeONegative startDate:start endDate:end];
+    } else if ([normalizedTypeString isEqualToString:@"O+"]) {
+        sample = [HKCategorySample categorySampleWithType:type value:HKBloodTypeANegative startDate:start endDate:end];
     }
+    
+    return sample;
 }
+ */
                      
 @end
