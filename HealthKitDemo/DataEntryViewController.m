@@ -22,10 +22,24 @@
 @property (weak, nonatomic) IBOutlet UITextField *bloodSugarField;
 @property (weak, nonatomic) IBOutlet UITextField *heartRateField;
 
+@property (nonatomic, readonly) NSDateFormatter *formatter;
+
 @end
 
 @implementation DataEntryViewController
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    
+    _formatter = [[NSDateFormatter alloc] init];
+    [_formatter setDateStyle:NSDateFormatterShortStyle];
+    [_formatter setTimeStyle:NSDateFormatterNoStyle];
+}
 - (IBAction)saveCharacteristicData:(UIButton *)sender {
+    NSDate *birthDate = [self.formatter dateFromString:self.birthDateField.text];
+    NSString *sex = [self.genderPIcker titleForSegmentAtIndex:self.genderPIcker.selectedSegmentIndex];
+    NSString *bloodType = self.bloodTypeField.text;
+    
+    [self saveBirthDate:birthDate sex:sex andBloodType:bloodType];
 }
 
 - (IBAction)saveSampleData:(id)sender {
@@ -45,16 +59,27 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)saveBirthDate:(NSDate*)date sex:(NSString*)sex andBloodType:(NSString*)bloodType {
+    HKBloodTypeObject *bto = [self bloodTypeFromString:bloodType]; //Takin' care of business...
+    HKBiologicalSexObject *so = [self sexFromString:sex];
+    
+    HKCharacteristicType *charType = [HKCharacteristicType characteristicTypeForIdentifier:HKCharacteristicTypeIdentifierDateOfBirth];
+    
+    NSDateComponents *components = [[NSCalendar currentCalendar] components:NSCalendarUnitDay fromDate:date toDate:[NSDate date] options:NSCalendarWrapComponents];
+    CGFloat daysOld = [components day];
+    HKQuantity *days = [HKQuantity quantityWithUnit:[HKUnit dayUnit] doubleValue:daysOld];
+    
+    [[AppDelegate healthStore] saveObjects:@[bto, so, dob] withCompletion:^(BOOL success, NSError *error) {
+        NSLog(@"%@ succeed saving data. Error: %@", (success ? @"Did" : @"Did not"), error);
+    }];
+}
+
 - (void)populateCharacteristicData {
     NSError *error = nil;
     NSDate *birthdate = [[AppDelegate healthStore] dateOfBirthWithError:&error];
     
     if (!error) {
-        NSDateFormatter *fmt = [[NSDateFormatter alloc] init];
-        [fmt setDateStyle:NSDateFormatterShortStyle];
-        [fmt setTimeStyle:NSDateFormatterNoStyle];
-        
-        self.birthDateField.text = [fmt stringFromDate:birthdate];
+        self.birthDateField.text = [self.formatter stringFromDate:birthdate];
     } else {
         NSLog(@"Error fetching birth date from health store: %@", error);
     }
@@ -119,5 +144,15 @@
             return nil;
     }
 }
-
+                     
+- (HKBloodType)bloodTypeForString:(NSString*)string {
+    HKObjectType *type = [HKObjectType characteristicTypeForIdentifier:HKCharacteristicTypeIdentifierBloodType];
+    NSDate *start = [NSDate date];
+    NSDate *end = start;
+    HKCategorySample *sample = nil;
+    if ([[string uppercaseString] isEqualToString:@"AB-"]) {
+        //stuff
+    }
+}
+                     
 @end
