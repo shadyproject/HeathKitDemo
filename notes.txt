@@ -1,0 +1,28 @@
+HKObject
+  1) All objects have a UUID
+  2) All objects have a source
+      - each app is a source
+      - specific pieces of hardware are also sources
+  3) All objects have metadata in the form of dictionaries
+      - this is the only real "extensibility" available in health kit
+
+How to save data into health kit
+  1) Create an HKUnit
+  2) Create an HKQuantity
+  3) Create an HKQuantityType (or an HKCategoryType, but never an HKCharacteristicType since those dont' exist)
+  4) Create an HKQuantitySample (or an HKCategorySample but never a blah blah blah see above)
+
+How to get data out of health kit
+  1)Queries
+
+
+Using Health Kit
+  1) Entitlements
+  2) Request permission to read and share
+      This is done *per object type* and you have to request for everything you want
+      You only know if you have sharing authorization.
+      You dont' know if you have been approved or denied reading access, because security
+
+
+Errata
+  1) Three new custom formatters for working with HealthKit data
