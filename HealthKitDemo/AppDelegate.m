@@ -22,12 +22,23 @@
     
     static dispatch_once_t token;
     dispatch_once(&token, ^{
-        __store = [[HKHealthStore alloc] init];
+        
+        //apparently iPad dosn't support health kit?
+        if ([HKHealthStore isHealthDataAvailable]) {
+            __store = [[HKHealthStore alloc] init];
+            
+            NSSet *readTypes = [NSSet setWithArray:@[]];
+            NSSet *writeTypes = [NSSet setWithArray:@[]];
+            
+            [__store requestAuthorizationToShareTypes:writeTypes readTypes:readTypes completion:^(BOOL success, NSError *error) {
+                //TODO: error handling
+                NSLog(@"Health kit authorization request result: %d.  Error: %@", success, error);
+            }];        }
     });
     
     return __store;
 }
-            
+
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     return YES;
