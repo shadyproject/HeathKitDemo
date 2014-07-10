@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface GraphViewHeader : UICollectionViewCell
+@interface TextDisplayCell : UICollectionViewCell
 
 - (void)setLabelText:(NSString*)text;
 @end

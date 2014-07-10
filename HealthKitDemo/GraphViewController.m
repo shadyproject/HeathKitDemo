@@ -7,7 +7,7 @@
 //
 
 #import "GraphViewController.h"
-#import "GraphViewHeader.h"
+#import "TextDisplayCell.h"
 #import "AppDelegate.h"
 
 @import HealthKit;
@@ -34,8 +34,8 @@
     
     self.colors = array;
     
-    [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"CollectionViewCell"];
-    [self.collectionView registerClass:[GraphViewHeader class]
+    [self.collectionView registerClass:[TextDisplayCell class] forCellWithReuseIdentifier:@"CollectionViewCell"];
+    [self.collectionView registerClass:[TextDisplayCell class]
             forSupplementaryViewOfKind:UICollectionElementKindSectionHeader
                    withReuseIdentifier:@"HeaderCell"];
 }
@@ -108,7 +108,7 @@ referenceSizeForHeaderInSection:(NSInteger)section {
           viewForSupplementaryElementOfKind:(NSString *)kind
                                 atIndexPath:(NSIndexPath *)indexPath {
     
-    GraphViewHeader *cell = [self.collectionView dequeueReusableSupplementaryViewOfKind:kind
+    TextDisplayCell *cell = [self.collectionView dequeueReusableSupplementaryViewOfKind:kind
                                                                          withReuseIdentifier:@"HeaderCell"
                                                                                 forIndexPath:indexPath];
     cell.backgroundColor = [UIColor darkGrayColor];
@@ -156,22 +156,84 @@ referenceSizeForHeaderInSection:(NSInteger)section {
 }
 
 #pragma mark HealthKit Queries
-- (void)configureHeightCell:(UICollectionViewCell*)cell forRow:(NSInteger)row {
+- (void)configureHeightCell:(TextDisplayCell*)cell forRow:(NSInteger)row {
     
+    if (row == 0) {
+        //show the most recent version
+        [self fetchMostRecentDataOfQuantityType:[HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierHeight]
+                                 withCompletion:^(HKQuantity *mostRecentQuantity, NSError *error) {
+            if (error) {
+                [cell setLabelText:[error localizedDescription]];
+            } else {
+                [cell setLabelText:[NSString stringWithFormat:@"Most Recent Weight: %@", mostRecentQuantity]];
+            }
+        }];
+    } else if (row == 1) {
+        //show a graph of all the values
+    }
 }
 
-- (void)configureWeightCell:(UICollectionViewCell*)cell forRow:(NSInteger)row {
-    
+- (void)configureWeightCell:(TextDisplayCell*)cell forRow:(NSInteger)row {
+     if (row == 0) {
+        //show the most recent version
+         [self fetchMostRecentDataOfQuantityType:[HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierHeight]
+                                  withCompletion:^(HKQuantity *mostRecentQuantity, NSError *error) {
+             if (error) {
+                 [cell setLabelText:[error localizedDescription]];
+             } else {
+                 [cell setLabelText:[NSString stringWithFormat:@"Most Recent Height: %@", mostRecentQuantity]];
+             }
+             }];
+    } else if (row == 1) {
+        //show a graph of all the values
+    }
 }
 
-- (void)configureBacCell:(UICollectionViewCell*)cell forRow:(NSInteger)row {
-    
+- (void)configureBacCell:(TextDisplayCell*)cell forRow:(NSInteger)row {
+        if (row == 0) {
+            //show the most recent version
+            [self fetchMostRecentDataOfQuantityType:[HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierBloodAlcoholContent]
+                                     withCompletion:^(HKQuantity *mostRecentQuantity, NSError *error) {
+                if (error) {
+                    [cell setLabelText:[error localizedDescription]];
+                } else {
+                    [cell setLabelText:[NSString stringWithFormat:@"Most Recent Blood Alcohol Content: %@", mostRecentQuantity]];
+                }
+            }];
+    } else if (row == 1) {
+        //show a graph of all the values
+        HKStatisticsQuery *averageBac
+    }
 }
-- (void)configureBpCell:(UICollectionViewCell*)cell forRow:(NSInteger)row {
-    
+- (void)configureBpCell:(TextDisplayCell*)cell forRow:(NSInteger)row {
+        if (row == 0) {
+        //show the most recent version
+            [self fetchMostRecentDataOfQuantityType:[HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierBloodPressureSystolic]
+                                     withCompletion:^(HKQuantity *mostRecentQuantity, NSError *error) {
+                                         if (error) {
+                                             [cell setLabelText:[error localizedDescription]];
+                                         } else {
+                                             [cell setLabelText:[NSString stringWithFormat:@"Most Recent Systolic: %@", mostRecentQuantity]];
+                                         }
+                                     }];
+    } else if (row == 1) {
+        //show a graph of all the values
+    }
 }
-- (void)configureFuelCell:(UICollectionViewCell*)cell forRow:(NSInteger)row {
-    
+- (void)configureFuelCell:(TextDisplayCell*)cell forRow:(NSInteger)row {
+        if (row == 0) {
+        //show the most recent version
+             [self fetchMostRecentDataOfQuantityType:[HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierNikeFuel]
+                                     withCompletion:^(HKQuantity *mostRecentQuantity, NSError *error) {
+                                         if (error) {
+                                             [cell setLabelText:[error localizedDescription]];
+                                         } else {
+                                             [cell setLabelText:[NSString stringWithFormat:@"Most Recent Systolic: %@", mostRecentQuantity]];
+                                         }
+                                     }];       
+    } else if (row == 1) {
+        //show a graph of all the values
+    }
 }
 
 // Get the single most recent quantity sample from health store.
@@ -191,6 +253,21 @@ referenceSizeForHeaderInSection:(NSInteger)section {
         
         if (completion) completion(quantity, error);
     }];
+    
+    [[AppDelegate healthStore] executeQuery:query];
+}
+
+- (void)fetchAverageOfDataForQuantityType:(HKQuantityType*)quantityType withCompletion:(void (^)(HKStatisticsQuery *query, HKStatistics *result, NSError *error))completion {
+    NSDate *now = [NSDate date];
+    NSPredicate *predicate = [HKQuery predicateForSamplesWithStartDate:[now dateByAddingTimeInterval:-30] endDate:now options:HKQueryOptionNone];
+    HKStatisticsQuery *query = [[HKStatisticsQuery alloc] initWithQuantityType:quantityType quantitySamplePredicate:predicate options:HKStatisticsOptionDiscreteAverage completionHandler:completion];
+    [[AppDelegate healthStore] executeQuery:query];
+}
+
+- (void)fetchSumOfDataForQuantityType:(HKQuantityType*)quantityType withCompletion:(void (^)(HKStatisticsQuery *query, HKStatistics *results, NSError *error))completion {
+    NSDate *now = [NSDate date];
+    NSPredicate *predicate = [HKQuery predicateForSamplesWithStartDate:[now dateByAddingTimeInterval:-30] endDate:now options:HKQueryOptionNone];
+    HKStatisticsQuery *query = [[HKStatisticsQuery alloc] initWithQuantityType:quantityType quantitySamplePredicate:predicate options:HKStatisticsOptionCumulativeSum completionHandler:completion];
     
     [[AppDelegate healthStore] executeQuery:query];
 }

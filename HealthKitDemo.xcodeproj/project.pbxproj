@@ -7,8 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2D41D623196E52210058A04D /* GraphViewHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D41D621196E52210058A04D /* GraphViewHeader.m */; };
-		2D41D624196E52210058A04D /* GraphViewHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2D41D622196E52210058A04D /* GraphViewHeader.xib */; };
+		2D41D623196E52210058A04D /* TextDisplayCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D41D621196E52210058A04D /* TextDisplayCell.m */; };
 		2D41D627196EF1D70058A04D /* AddABunchOfDataViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D41D626196EF1D70058A04D /* AddABunchOfDataViewController.m */; };
 		2D4E1E9E19639EB6006F22EB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D4E1E9D19639EB6006F22EB /* main.m */; };
 		2D4E1EA119639EB6006F22EB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D4E1EA019639EB6006F22EB /* AppDelegate.m */; };
@@ -31,9 +30,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		2D41D620196E52210058A04D /* GraphViewHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GraphViewHeader.h; sourceTree = "<group>"; };
-		2D41D621196E52210058A04D /* GraphViewHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GraphViewHeader.m; sourceTree = "<group>"; };
-		2D41D622196E52210058A04D /* GraphViewHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GraphViewHeader.xib; sourceTree = "<group>"; };
+		2D41D620196E52210058A04D /* TextDisplayCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextDisplayCell.h; sourceTree = "<group>"; };
+		2D41D621196E52210058A04D /* TextDisplayCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextDisplayCell.m; sourceTree = "<group>"; };
 		2D41D625196EF1D70058A04D /* AddABunchOfDataViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddABunchOfDataViewController.h; sourceTree = "<group>"; };
 		2D41D626196EF1D70058A04D /* AddABunchOfDataViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddABunchOfDataViewController.m; sourceTree = "<group>"; };
 		2D4E1E9819639EB6006F22EB /* HealthKitDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HealthKitDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -105,9 +103,8 @@
 				2D4E1EA819639EB6006F22EB /* Main.storyboard */,
 				2D4E1EAB19639EB6006F22EB /* Images.xcassets */,
 				2D4E1E9B19639EB6006F22EB /* Supporting Files */,
-				2D41D620196E52210058A04D /* GraphViewHeader.h */,
-				2D41D621196E52210058A04D /* GraphViewHeader.m */,
-				2D41D622196E52210058A04D /* GraphViewHeader.xib */,
+				2D41D620196E52210058A04D /* TextDisplayCell.h */,
+				2D41D621196E52210058A04D /* TextDisplayCell.m */,
 				2D41D625196EF1D70058A04D /* AddABunchOfDataViewController.h */,
 				2D41D626196EF1D70058A04D /* AddABunchOfDataViewController.m */,
 			);
@@ -226,7 +223,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2D41D624196E52210058A04D /* GraphViewHeader.xib in Resources */,
 				2D4E1EAA19639EB6006F22EB /* Main.storyboard in Resources */,
 				2D4E1EAC19639EB6006F22EB /* Images.xcassets in Resources */,
 			);
@@ -251,7 +247,7 @@
 				2D4E1EA119639EB6006F22EB /* AppDelegate.m in Sources */,
 				2D4E1EA419639EB6006F22EB /* DataEntryViewController.m in Sources */,
 				2D4E1E9E19639EB6006F22EB /* main.m in Sources */,
-				2D41D623196E52210058A04D /* GraphViewHeader.m in Sources */,
+				2D41D623196E52210058A04D /* TextDisplayCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

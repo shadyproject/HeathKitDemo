@@ -312,6 +312,9 @@
                                 </cells>
                             </tableViewSection>
                         </sections>
+                        <variation key="heightClass=regular-widthClass=regular" ambiguous="YES">
+                            <rect key="frame" x="0.0" y="0.0" width="640" height="640"/>
+                        </variation>
                         <connections>
                             <outlet property="dataSource" destination="ZZK-cc-MW8" id="xQm-Cn-H2Q"/>
                             <outlet property="delegate" destination="ZZK-cc-MW8" id="9nE-ff-JI4"/>
@@ -415,6 +418,9 @@
                                 </view>
                             </collectionViewCell>
                         </cells>
+                        <variation key="heightClass=regular-widthClass=regular" ambiguous="YES">
+                            <rect key="frame" x="0.0" y="0.0" width="640" height="640"/>
+                        </variation>
                         <connections>
                             <outlet property="dataSource" destination="p8c-XW-Yeu" id="ODq-Gn-1AU"/>
                             <outlet property="delegate" destination="p8c-XW-Yeu" id="Xos-Xe-rYD"/>

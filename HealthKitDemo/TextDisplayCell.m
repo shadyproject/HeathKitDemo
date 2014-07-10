@@ -6,14 +6,14 @@
 //  Copyright (c) 2014 shadyproject. All rights reserved.
 //
 
-#import "GraphViewHeader.h"
+#import "TextDisplayCell.h"
 
-@interface GraphViewHeader ()
+@interface TextDisplayCell ()
 //@property (weak, nonatomic) IBOutlet UILabel *label;
 
 @end
 
-@implementation GraphViewHeader
+@implementation TextDisplayCell
 
 - (void)awakeFromNib {
     // Initialization code
@@ -26,7 +26,7 @@
 }
 
 - (void)setLabelText:(NSString *)text {
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 300, 50)];
+    UILabel *label = [[UILabel alloc] initWithFrame:self.contentView.frame];
     label.text = text;
     [label setTextColor:[UIColor whiteColor]];
     
