@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6154.21" systemVersion="13D65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6185.7" systemVersion="14A283o" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6153.13"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6181.2"/>
     </dependencies>
     <scenes>
-        <!--Data Entry View Controller - Data Entry-->
+        <!--Data Entry-->
         <scene sceneID="TiQ-ln-34y">
             <objects>
                 <tableViewController id="ZZK-cc-MW8" customClass="DataEntryViewController" sceneMemberID="viewController">
@@ -12,7 +12,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                         <sections>
                             <tableViewSection headerTitle="Characteristic Data" id="HuG-be-yB9">
                                 <cells>
@@ -55,7 +54,7 @@
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="qr0-ZO-ijv">
+                                                <segmentedControl opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="qr0-ZO-ijv">
                                                     <rect key="frame" x="179" y="8" width="120" height="29"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="120" id="v3B-k6-aqT"/>
@@ -334,7 +333,7 @@
             </objects>
             <point key="canvasLocation" x="3045" y="535"/>
         </scene>
-        <!--Tab Bar Controller - Health Kit Demo-->
+        <!--Health Kit Demo-->
         <scene sceneID="yl2-sM-qoP">
             <objects>
                 <tabBarController title="Health Kit Demo" id="49e-Tb-3d3" sceneMemberID="viewController">
@@ -353,14 +352,13 @@
             </objects>
             <point key="canvasLocation" x="2283" y="965"/>
         </scene>
-        <!--Graph View Controller - Graphs-->
+        <!--Graphs-->
         <scene sceneID="UEy-kH-c0S">
             <objects>
                 <collectionViewController id="p8c-XW-Yeu" customClass="GraphViewController" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" dataMode="prototypes" id="5qB-t0-mn4">
                         <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="fP1-cG-t4V">
                             <size key="itemSize" width="50" height="50"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>

@@ -15,6 +15,7 @@
 @property (strong, nonatomic) UIWindow *window;
 
 + (HKHealthStore*)healthStore;
++ (void)requestHealthStorePermissionsWithCompletion:(void(^)(BOOL success, NSError *error))completion;
 
 @end
 

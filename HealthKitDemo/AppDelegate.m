@@ -17,6 +17,37 @@
 
 @implementation AppDelegate
 
++ (void)requestHealthStorePermissionsWithCompletion:(void(^)(BOOL success, NSError *error))completion {
+    
+    if (![HKHealthStore isHealthDataAvailable]) {
+        NSError *error = [NSError errorWithDomain:@"SomeDomainHere" code:42 userInfo:@{@"Message": @"HealthKit not supported on current device"}];
+        completion(NO, error);
+        return;
+    }
+    
+    //fun fact, we can't actually shared fuel band types, it throws an exception
+    //write
+    NSSet *shareTypes = [NSSet setWithArray:@[
+                                              [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierHeight],
+                                              [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyMass],
+                                              [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierBloodAlcoholContent],
+                                              [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierBloodPressureDiastolic],
+                                              [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierBloodPressureSystolic],
+                                              //[HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierNikeFuel],
+                                              ]];
+    
+    NSSet *readTypes = [NSSet setWithArray:@[
+                                             [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierHeight],
+                                             [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyMass],
+                                             [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierBloodAlcoholContent],
+                                             [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierBloodPressureDiastolic],
+                                             [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierBloodPressureSystolic],
+                                             [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierNikeFuel],
+                                             ]];
+                        
+    [[AppDelegate healthStore] requestAuthorizationToShareTypes:shareTypes readTypes:readTypes completion:completion];
+}
+
 +(HKHealthStore*)healthStore {
     static HKHealthStore* __store = nil;
     
@@ -26,22 +57,7 @@
         //apparently iPad dosn't support health kit?
         if ([HKHealthStore isHealthDataAvailable]) {
             __store = [[HKHealthStore alloc] init];
-            
-            NSSet *readTypes = [NSSet setWithArray:@[
-                                                     HKQuantityTypeIdentifierHeight,
-                                                     HKQuantityTypeIdentifierBodyMass,
-                                                     HKQuantityTypeIdentifierBloodAlcoholContent,
-                                                     HKQuantityTypeIdentifierBloodPressureDiastolic,
-                                                     HKQuantityTypeIdentifierBloodPressureSystolic,
-                                                     HKQuantityTypeIdentifierNikeFuel,
-                                                     
-                                                     ]];
-            NSSet *writeTypes = readTypes;
-            
-            [__store requestAuthorizationToShareTypes:writeTypes readTypes:readTypes completion:^(BOOL success, NSError *error) {
-                //TODO: error handling
-                NSLog(@"Health kit authorization request result: %d.  Error: %@", success, error);
-            }];        }
+        }
     });
     
     return __store;

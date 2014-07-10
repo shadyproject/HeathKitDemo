@@ -140,7 +140,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self populateCharacteristicData];
+    [AppDelegate requestHealthStorePermissionsWithCompletion:^(BOOL success, NSError *error) {
+        if (success) {
+            [self populateCharacteristicData];
+        } else {
+            NSLog(@"Error setting up health kit: %@", error);
+        }
+    }];
 }
 
 - (void)didReceiveMemoryWarning {
