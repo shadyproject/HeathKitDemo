@@ -56,7 +56,6 @@
         if (!success) {
             NSLog(@"Could not save height into health store: %@", error);
         }
-        //[self updateUsersHeight];
     }];
 }
 
@@ -73,7 +72,6 @@
         if (!success) {
             NSLog(@"Coudl not save weight into health store: %@", error);
         }
-        //[self updateUsersWeight];
     }];
 }
 
@@ -90,7 +88,6 @@
         if (!success) {
             NSLog(@"Could not save fuel points into health store: %@", error);
         }
-        //[self updateFuelPoints];
     }];
 }
 

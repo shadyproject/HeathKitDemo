@@ -9,7 +9,7 @@
 #import "GraphViewHeader.h"
 
 @interface GraphViewHeader ()
-@property (weak, nonatomic) IBOutlet UILabel *label;
+//@property (weak, nonatomic) IBOutlet UILabel *label;
 
 @end
 
@@ -22,11 +22,15 @@
 - (void)prepareForReuse {
     [super prepareForReuse];
     
-    self.label.text = nil;
+    [[self.contentView subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
 }
 
 - (void)setLabelText:(NSString *)text {
-    [self.label setText:text];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 300, 50)];
+    label.text = text;
+    [label setTextColor:[UIColor whiteColor]];
+    
+    [self.contentView addSubview:label];
 }
 
 @end

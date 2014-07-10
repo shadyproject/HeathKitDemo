@@ -1,3 +1,33 @@
+All values are immutable in health kit, can only be created with the constructors
+
+HKUnit
+  1) Handles metric or imperial and conversions
+  2) can be simple (mg) or complex (mg/dL)
+  3) create with constructors and composition, or with format strings
+  3) units specify what they can and cant be converted to, will throw an exception if no conversion
+      - there is a method to check if units are convertible
+  4) Cannot create your own units
+
+HKQuantity
+  1) Basically just a CGFloat
+  2) can specify the units with which it will work, and throw an exception if not compatible
+
+HKObjectType
+  1) Defines which type of information health kit can record
+      - cannot create your own, only what HealthKit supplies
+  2) Two different types
+      - HKCharacteristicType
+          * a phsyical characteristic that doesn't change.
+            - Blood Type, Biological Sex, Birth Date
+          * Apparently, we can't set these, they can only be set via the HealthApp
+      - HKSampleType
+          * the only kind we actually use, represents a sample of data
+          * HKQuantityType
+            - The kind you'll mostly use, has a double value and an associated type
+      - HKCategoryType
+          * right now, there is only one kind: HKSleepAnalysis
+          * represents a value in an enum, when creating the value you MUST use a value from the enum
+
 HKObject
   1) All objects have a UUID
   2) All objects have a source
@@ -5,6 +35,15 @@ HKObject
       - specific pieces of hardware are also sources
   3) All objects have metadata in the form of dictionaries
       - this is the only real "extensibility" available in health kit
+  4) All data is a subclass of this
+      - HKQuantitySample
+          * HKCategoryType
+          * HKQuantity
+      - HKCategorySample
+          * HKCategoryType
+          * NSIntegr (represnts an enum)
+  5) HKSample is direct subclass of HKObject
+      - Adds start date and end date
 
 How to save data into health kit
   1) Create an HKUnit

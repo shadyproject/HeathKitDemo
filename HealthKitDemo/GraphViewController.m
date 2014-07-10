@@ -8,6 +8,7 @@
 
 #import "GraphViewController.h"
 #import "GraphViewHeader.h"
+#import "AppDelegate.h"
 
 @import HealthKit;
 
@@ -70,7 +71,7 @@ referenceSizeForHeaderInSection:(NSInteger)section {
 - (UICollectionViewCell*)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     UICollectionViewCell *cell = [self.collectionView dequeueReusableCellWithReuseIdentifier:@"CollectionViewCell" forIndexPath:indexPath];
     
-    cell.backgroundColor = self.colors[indexPath.row];
+    cell.backgroundColor = [UIColor lightGrayColor];
     switch (indexPath.section) {
         case 0:
             //height
@@ -110,7 +111,7 @@ referenceSizeForHeaderInSection:(NSInteger)section {
     GraphViewHeader *cell = [self.collectionView dequeueReusableSupplementaryViewOfKind:kind
                                                                          withReuseIdentifier:@"HeaderCell"
                                                                                 forIndexPath:indexPath];
-    cell.backgroundColor = [UIColor whiteColor];
+    cell.backgroundColor = [UIColor darkGrayColor];
     
     switch (indexPath.section) {
         case 0:
@@ -191,6 +192,6 @@ referenceSizeForHeaderInSection:(NSInteger)section {
         if (completion) completion(quantity, error);
     }];
     
-    [self.healthStore executeQuery:query];
+    [[AppDelegate healthStore] executeQuery:query];
 }
 @end
