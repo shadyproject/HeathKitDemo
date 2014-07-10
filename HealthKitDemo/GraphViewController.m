@@ -7,6 +7,9 @@
 //
 
 #import "GraphViewController.h"
+#import "GraphViewHeader.h"
+
+@import HealthKit;
 
 @interface GraphViewController ()
 
@@ -31,7 +34,7 @@
     self.colors = array;
     
     [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"CollectionViewCell"];
-    [self.collectionView registerClass:[UICollectionViewCell class]
+    [self.collectionView registerClass:[GraphViewHeader class]
             forSupplementaryViewOfKind:UICollectionElementKindSectionHeader
                    withReuseIdentifier:@"HeaderCell"];
 }
@@ -71,22 +74,27 @@ referenceSizeForHeaderInSection:(NSInteger)section {
     switch (indexPath.section) {
         case 0:
             //height
+            [self configureHeightCell:cell forRow:indexPath.row];
             break;
             
         case 1:
             //weight
+            [self configureWeightCell:cell forRow:indexPath.row];
             break;
             
         case 2:
             //bac
+            [self configureBacCell:cell forRow:indexPath.row];
             break;
             
         case 3:
             //bp
+            [self configureBpCell:cell forRow:indexPath.row];
             break;
             
         case 4:
             //nike fuel
+            [self configureFuelCell:cell forRow:indexPath.row];
             break;
             
         default:
@@ -99,56 +107,40 @@ referenceSizeForHeaderInSection:(NSInteger)section {
           viewForSupplementaryElementOfKind:(NSString *)kind
                                 atIndexPath:(NSIndexPath *)indexPath {
     
-    UICollectionViewCell *cell = [self.collectionView dequeueReusableSupplementaryViewOfKind:kind
+    GraphViewHeader *cell = [self.collectionView dequeueReusableSupplementaryViewOfKind:kind
                                                                          withReuseIdentifier:@"HeaderCell"
                                                                                 forIndexPath:indexPath];
-    NSString *labelText = nil;
+    cell.backgroundColor = [UIColor whiteColor];
+    
     switch (indexPath.section) {
         case 0:
             //height
-            labelText = @"Height";
+            [cell setLabelText:@"Height"];
             break;
             
         case 1:
             //weight
-            labelText = @"Weight";
+            [cell setLabelText:@"Weight"];
             break;
             
         case 2:
             //bac
-            labelText = @"Blood Alcohol Content";
+            [cell setLabelText:@"Blood Alcohol Content"];
             break;
             
         case 3:
             //bp
-            labelText = @"Blood Pressure";
+            [cell setLabelText:@"Blood Pressure"];
             break;
             
         case 4:
             //nike fuel
-            labelText = @"Fuel Points";
+            [cell setLabelText:@"Fuel Points"];
             break;
         default:
-            labelText = @"Dunno";
+            [cell setLabelText:@"Dunno"];
             break;
     }
-    
-    UILabel *label = [[UILabel alloc] init];
-    label.text = labelText;
-    
-    UIView *superview = cell.contentView;
-    NSDictionary *variables = NSDictionaryOfVariableBindings(label, superview);
-    NSArray *constraints = @[[[NSLayoutConstraint constraintsWithVisualFormat:@"V:[superview]-(<=1)-[label]"
-                                                                     options: NSLayoutFormatAlignAllCenterX
-                                                                     metrics:nil
-                                                                       views:variables] firstObject],
-                             
-                             [[NSLayoutConstraint constraintsWithVisualFormat:@"H:[superview]-(<=1)-[label]"
-                                                                     options: NSLayoutFormatAlignAllCenterY
-                                                                     metrics:nil
-                                                                       views:variables] firstObject]];
-    [cell.contentView addSubview:label];
-    [cell.contentView addConstraints:constraints];
     
     return cell;
 }
@@ -162,4 +154,43 @@ referenceSizeForHeaderInSection:(NSInteger)section {
     return 2;
 }
 
+#pragma mark HealthKit Queries
+- (void)configureHeightCell:(UICollectionViewCell*)cell forRow:(NSInteger)row {
+    
+}
+
+- (void)configureWeightCell:(UICollectionViewCell*)cell forRow:(NSInteger)row {
+    
+}
+
+- (void)configureBacCell:(UICollectionViewCell*)cell forRow:(NSInteger)row {
+    
+}
+- (void)configureBpCell:(UICollectionViewCell*)cell forRow:(NSInteger)row {
+    
+}
+- (void)configureFuelCell:(UICollectionViewCell*)cell forRow:(NSInteger)row {
+    
+}
+
+// Get the single most recent quantity sample from health store.
+- (void)fetchMostRecentDataOfQuantityType:(HKQuantityType *)quantityType withCompletion:(void (^)(HKQuantity *mostRecentQuantity, NSError *error))completion {
+    NSSortDescriptor *timeSortDescriptor = [[NSSortDescriptor alloc] initWithKey:HKSampleSortIdentifierEndDate ascending:NO];
+    
+    // Since we are interested in retrieving the user's latest sample, we sort the samples in descending order, and set the limit to 1. We are not filtering the data, and so the predicate is set to nil.
+    HKSampleQuery *query = [[HKSampleQuery alloc] initWithSampleType:quantityType predicate:nil limit:1 sortDescriptors:@[timeSortDescriptor] resultsHandler:^(HKSampleQuery *query, NSArray *results, NSError *error) {
+        if (completion && error) {
+            completion(nil, error);
+            return;
+        }
+        
+        // If quantity isn't in the database, return nil in the completion block.
+        HKQuantitySample *quantitySample = results.firstObject;
+        HKQuantity *quantity = quantitySample.quantity;
+        
+        if (completion) completion(quantity, error);
+    }];
+    
+    [self.healthStore executeQuery:query];
+}
 @end
